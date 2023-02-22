@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "decypher-project",
+    "slug": "decypher-project",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "decypher-project"
+}
