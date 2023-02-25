@@ -1,0 +1,5 @@
+export {default as DCPage} from './DCPage'
+export {default as DCText} from './DCText'
+export {default as DCButton} from './DCButton'
+export {default as DCInput} from './DCInput'
+export {default as DCImage} from './DCImage'
