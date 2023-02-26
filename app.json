@@ -8,6 +8,9 @@
     ],
     "ios": {
       "bundleIdentifier": "com.app.decypher"
+    },
+    "android": {
+      "package": "com.app.decypher"
     }
   },
   "name": "decypher-project"

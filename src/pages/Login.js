@@ -1,34 +1,41 @@
+//React
 import React, {useEffect, useState} from 'react'
-import { DCButton, DCImage, DCInput, DCPage, DCText } from '../Layouts'
-import Logo from '../assets/Logo/logo.png'
+//Components
 import { View } from 'react-native'
-import { collection, getDocs } from "firebase/firestore"; 
-import firebase from "firebase/app"; 
+import Logo from '../assets/Logo/logo.png'
+import { DCButton, DCImage, DCInput, DCPage, DCText } from '../Layouts'
+//Helpers
+import { showToast } from '../helpers/alert'
+import {UserContext, useContext} from '../../Context'
 
-const Login = () => {
+const Login = ({navigation}) => {
+  const {user, setUser} = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   })
-  const loginHandler = async () => {
-    const db = getFirestore(firebase.initializeApp({
-      apiKey: "AIzaSyBLdohLjCQXMoYwq-STO2BdR6EVcSa2TTI",
-      authDomain: "decypher-project.firebaseapp.com",
-      projectId: "decypher-project",
-      storageBucket: "decypher-project.appspot.com",
-      messagingSenderId: "577271821369",
-      appId: "1:577271821369:web:1a1d7a9fd42ff086a649e8",
-      measurementId: "G-G502EJ7L2N"
-    }));
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
+  const loginHandler = () => {
+    fetch("http://localhost:3000/users")
+    .then((response) => response.json())
+    .then((data) => {
+      let userFromApi = data.filter(user => user.email === formData.email && user.password === formData.password)[0]
+      if(userFromApi){
+        setUser(userFromApi)
+      }else{
+        setUser({})
+        showToast(
+          'error',
+          'The email or password is incorrect!',
+          'Please try again.'
+          )
+      }
     });
   }
   useEffect(() => {
-    console.log(formData)
-  }, [formData])
-
+    if(user.id){
+      navigation.navigate("Home")
+    }
+  }, [user]);
   return (
     <DCPage>
       <View
